@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart';
 
 import 'package:flutter/material.dart';
+import 'package:my_first_flutter_app/profile.dart';
 
 import 'member.dart';
 import 'strings.dart';
@@ -32,12 +33,19 @@ class GHFlutterState extends State<GHFlutter> {
   Widget _buildRow(int i) {
     return Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ListTile(
-          title: Text("${_members[i].login}", style: _biggerFont),
-          leading: CircleAvatar(
-            backgroundColor: Colors.green,
-            backgroundImage: NetworkImage(_members[i].avatarUrl),
+        child: GestureDetector(
+          child: ListTile(
+            title: Text("${_members[i].login}", style: _biggerFont),
+            leading: CircleAvatar(
+              backgroundColor: Colors.green,
+              backgroundImage: NetworkImage(_members[i].avatarUrl),
+            ),
           ),
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Profile(username: _members[i].login),
+            ),
+            );
+          },
         )
     );
   }
